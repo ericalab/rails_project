@@ -5,15 +5,24 @@ class BoardsController < ApplicationController
   end
 
   def new
-    @board = Board.new
+    @board = Board.new(flash[:board])
   end
 
   def create
-    board = Board.create(board_params)
-    redirect_to board
+    board = Board.new(board_params)
+    if board.save
+      flash[:notice] = "「#{board.title}」の掲示板を作成しました"
+      redirect_to board
+    else
+      redirect_to :back, flash: {
+        board: board,
+        error_messages: board.errors.full_messages
+      }
+    end
   end
 
   def show
+      @comment = @board.comments.new
   end
 
   def edit
@@ -21,21 +30,18 @@ class BoardsController < ApplicationController
 
   def update
     @board.update(board_params)
-
     redirect_to board
   end
 
   def destroy
     @board.destroy
-
-    redirect_to boards_path
+    redirect_to boards_path, flash: { notice: "「#{@board.title}」の掲示板を削除しました。" }
   end
 
   private
     def board_params
       params.require(:board).permit(:name, :title, :body)
     end
-
     def set_target_board
       @board = Board.find(params[:id])
     end
