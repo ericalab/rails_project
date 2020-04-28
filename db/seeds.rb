@@ -6,15 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 if Rails.env == 'development'
-    (1..50).each do |i|
-        Board.create(name: "ユーザー#{i}", title: "タイトル#{i}", body: "本文#{i}")
+    (1..20).each do |i|
+        Board.create!(
+            name: Faker::Name.name,
+            title: Faker::CryptoCoin.coin_name,
+            body: Faker::Lorem.paragraph(2)
+        )
     end
 
     Tag.create!([
-        { name: 'Ruby'},
-        { name: 'Python'},
-        { name: 'PHP'},
-        { name: 'Javascript'},
+        { name: 'ニュース'},
+        { name: '意見交換'},
         { name: '勉強会'},
         { name: 'セミナー'},
         { name: 'その他'}
