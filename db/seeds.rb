@@ -11,13 +11,12 @@ if Rails.env == 'development'
     end
 
     Tag.create!([
-        { name: 'Ruby"'}
-        { name: 'Python'} 
-        { name: 'PHP'}
-        { name: 'Javascript'}
-        { name: '勉強会'}
-        { name: 'セミナー'}
+        { name: 'Ruby'},
+        { name: 'Python'},
+        { name: 'PHP'},
+        { name: 'Javascript'},
+        { name: '勉強会'},
+        { name: 'セミナー'},
         { name: 'その他'}
-   ])
-    end 
+    ]) 
 end
